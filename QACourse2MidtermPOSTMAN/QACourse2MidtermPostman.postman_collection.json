@@ -314,7 +314,7 @@
 			"response": []
 		},
 		{
-			"name": "UpdateExistingItem",
+			"name": "UpdateNewlyAddedItem",
 			"event": [
 				{
 					"listen": "test",
@@ -380,7 +380,7 @@
 			"response": []
 		},
 		{
-			"name": "PartiallyUpdateExistingItem",
+			"name": "PartiallyUpdateNewlyAddedItem",
 			"event": [
 				{
 					"listen": "test",
@@ -428,7 +428,7 @@
 			"response": []
 		},
 		{
-			"name": "GetSpecificItem",
+			"name": "GetNewlyAddedItem",
 			"event": [
 				{
 					"listen": "test",
@@ -491,7 +491,7 @@
 			"response": []
 		},
 		{
-			"name": "DeleteAddedItem",
+			"name": "DeleteNewlyAddedItem",
 			"event": [
 				{
 					"listen": "test",
