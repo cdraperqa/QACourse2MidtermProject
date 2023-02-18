@@ -659,6 +659,65 @@
 			"response": []
 		},
 		{
+			"name": "UpdatePriceOfRestrictedItem",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"    pm.response.to.be.error;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"data\": {\r\n      \"price\": \"200.00\"\r\n   }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.restful-api.dev/objects/4",
+					"protocol": "https",
+					"host": [
+						"api",
+						"restful-api",
+						"dev"
+					],
+					"path": [
+						"objects",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "GetNonExistingObjectID",
 			"event": [
 				{
@@ -701,6 +760,52 @@
 							"key": "id",
 							"value": "500"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FinalGetFullListAndClearVars",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.unset(\"NewSupplyID\");\r",
+							"pm.globals.unset(\"NewSupplyID\");\r",
+							"pm.globals.unset(\"name\");\r",
+							"pm.globals.unset(\"description\");\r",
+							"pm.globals.unset(\"color\");\r",
+							"pm.globals.unset(\"itemcount\");\r",
+							"pm.globals.unset(\"quantity\");\r",
+							"\r",
+							"pm.test(\"Successful status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.ok;\r",
+							"});\r",
+							"pm.test(\"Returned all 13 items\", function(){\r",
+							"    const supplies = pm.response.json();\r",
+							"    pm.expect(supplies.length).to.eql(13);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.restful-api.dev/objects",
+					"protocol": "https",
+					"host": [
+						"api",
+						"restful-api",
+						"dev"
+					],
+					"path": [
+						"objects"
 					]
 				}
 			},
