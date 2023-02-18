@@ -1,0 +1,656 @@
+{
+	"info": {
+		"_postman_id": "0314a9c2-753f-48b7-9dfc-cdd7d6e5420b",
+		"name": "QACourse2MidtermPostman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25411685"
+	},
+	"item": [
+		{
+			"name": "GetFullObjectList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.ok;\r",
+							"});\r",
+							"pm.test(\"Returned all 13 items\", function(){\r",
+							"    const supplies = pm.response.json();\r",
+							"    pm.expect(supplies.length).to.eql(13);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.restful-api.dev/objects",
+					"protocol": "https",
+					"host": [
+						"api",
+						"restful-api",
+						"dev"
+					],
+					"path": [
+						"objects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetOneObjectByID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.ok;\r",
+							"});\r",
+							"pm.test(\"Returned all 13 items\", function(){\r",
+							"    const supplies = pm.response.json();\r",
+							"    pm.expect(supplies.length).to.eql(1);\r",
+							"});\r",
+							"pm.test(\"Returned correct item name\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Google Pixel 6 Pro\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.restful-api.dev/objects?id=1",
+					"protocol": "https",
+					"host": [
+						"api",
+						"restful-api",
+						"dev"
+					],
+					"path": [
+						"objects"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMultipleObjectsByID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.ok;\r",
+							"});\r",
+							"pm.test(\"Returned 3 items\", function(){\r",
+							"    const supplies = pm.response.json();\r",
+							"    pm.expect(supplies.length).to.eql(3);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.restful-api.dev/objects?id=2&id=4&id=6",
+					"protocol": "https",
+					"host": [
+						"api",
+						"restful-api",
+						"dev"
+					],
+					"path": [
+						"objects"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "2"
+						},
+						{
+							"key": "id",
+							"value": "4"
+						},
+						{
+							"key": "id",
+							"value": "6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddNewItem",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"NewSupplyID\", pm.response.json().id);\r",
+							"\r",
+							"pm.test(\"Successful status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"const moment=require('moment');\r",
+							"pm.test(\"Created date is today\", function(){\r",
+							"    const data = pm.response.json();\r",
+							"    pm.expect(moment(data.CreatedAt).format('MM/DD/YYYY'))\r",
+							"    .to.eql(moment().format('MM/DD/YYYY'))\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const schoolsupplies = [{\r",
+							"   name: \"folder\",\r",
+							"   data: {\r",
+							"      description: \"two-pocket folder\",\r",
+							"      color: \"red\",\r",
+							"      itemcount: \"1\",\r",
+							"      quantity: \"1\"}\r",
+							"}, {\r",
+							"   name: \"folder\",\r",
+							"   data: {\r",
+							"      description: \"two-pocket folder\",\r",
+							"      color: \"orange\",\r",
+							"      itemcount: \"1\",\r",
+							"      quantity: \"1\"}\r",
+							"}, {\r",
+							"   name: \"folder\",\r",
+							"   data: {\r",
+							"      description: \"two-pocket folder\",\r",
+							"      color: \"yellow\",\r",
+							"      itemcount: \"1\",\r",
+							"      quantity: \"1\"}\r",
+							"}, {\r",
+							"   name: \"folder\",\r",
+							"   data: {\r",
+							"      description: \"two-pocket folder\",\r",
+							"      color: \"green\",\r",
+							"      itemcount: \"1\",\r",
+							"      quantity: \"1\"}\r",
+							"}, {\r",
+							"   name: \"folder\",\r",
+							"   data: {\r",
+							"      description: \"two-pocket folder\",\r",
+							"      color: \"blue\",\r",
+							"      itemcount: \"1\",\r",
+							"      quantity: \"1\"}\r",
+							"}, {\r",
+							"    name: \"crayons\",\r",
+							"    data: {\r",
+							"      description: \"Crayola Crayons\",\r",
+							"      color: \"multicolor\",\r",
+							"      itemcount: \"24\",\r",
+							"      quantity: \"1\"}\r",
+							"}, {\r",
+							"   name: \"markers\",\r",
+							"   data: {\r",
+							"      description: \"Crayola Washable Markers\",\r",
+							"      color: \"multicolor\",\r",
+							"      itemcount: \"8\",\r",
+							"      quantity: \"1\"}\r",
+							"}, {   \r",
+							"   name: \"glue sticks\",\r",
+							"   data: {\r",
+							"      description: \"Elmer's Washable Glue Sticks\",\r",
+							"      color: \"disappearing purple\",\r",
+							"      itemcount: \"1\",\r",
+							"      quantity: \"4\"}\r",
+							"}, {   \r",
+							"    name: \"notebook\",\r",
+							"    data: {\r",
+							"      description: \"spiral bound, college ruled\",\r",
+							"      color: \"any\",\r",
+							"      itemcount: \"1\",\r",
+							"      quantity: \"5\"}\r",
+							"}];\r",
+							"\r",
+							"const schoolsupply = _.sample(schoolsupplies);\r",
+							"\r",
+							"pm.globals.set(\"name\", schoolsupply.name);\r",
+							"pm.globals.set(\"description\", schoolsupply.data.description);\r",
+							"pm.globals.set(\"color\", schoolsupply.data.color);\r",
+							"pm.globals.set(\"itemcount\", schoolsupply.data.itemcount);\r",
+							"pm.globals.set(\"quantity\", schoolsupply.data.quantity);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"name\": \"{{name}}\",\r\n   \"data\": {\r\n      \"description\": \"{{description}}\",\r\n      \"color\": \"{{color}}\",\r\n      \"itemcount:\": \"{{itemcount}}\",\r\n      \"quantity\": \"{{quantity}}\"\r\n   }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.restful-api.dev/objects",
+					"protocol": "https",
+					"host": [
+						"api",
+						"restful-api",
+						"dev"
+					],
+					"path": [
+						"objects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateExistingItem",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.ok;\r",
+							"});\r",
+							"pm.test(\"Response type is json\"), function(){\r",
+							"    pm.response.to.be.json;\r",
+							"} \r",
+							"pm.test(\"Color value changed correctly\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.color).to.eql(\"rainbow\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"name\": \"folder\",\r\n   \"data\": {\r\n      \"description\": \"two-pocket folder with prongs\",\r\n      \"color\": \"rainbow\",\r\n      \"itemcount:\": \"1\",\r\n      \"quantity\": \"10\"\r\n   }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.restful-api.dev/objects/{{NewSupplyID}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"restful-api",
+						"dev"
+					],
+					"path": [
+						"objects",
+						"{{NewSupplyID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PartiallyUpdateExistingItem",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.ok;\r",
+							"});\r",
+							"pm.test(\"Color value changed correctly\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.color).to.eql(\"slimy eel\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"data\": {\r\n      \"color\": \"slimy eel\"\r\n   }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.restful-api.dev/objects/{{NewSupplyID}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"restful-api",
+						"dev"
+					],
+					"path": [
+						"objects",
+						"{{NewSupplyID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSpecificItem",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Returns 1 item\", function(){\r",
+							"    const supplies = pm.response.json();\r",
+							"    pm.expect(supplies.length).to.eql(1);\r",
+							"});\r",
+							"\r",
+							"const itemHasName = (supply) => {\r",
+							"    return supply.name !== undefined;\r",
+							"}\r",
+							"pm.test(\"Every item has a name\", function(){\r",
+							"    const supplies = pm.response.json();\r",
+							"    pm.expect(supplies.every(itemHasName)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"const isMatchesGlobalVar = (supply) => {\r",
+							"    return supply.id = \"{{NewSupplyID}}\";\r",
+							"}\r",
+							"pm.test(\"Requested Item ID matches Global Variable\", function(){\r",
+							"    const supplies = pm.response.json();\r",
+							"    pm.expect(supplies.every(isMatchesGlobalVar)).to.be.true;\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.restful-api.dev/objects?id={{NewSupplyID}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"restful-api",
+						"dev"
+					],
+					"path": [
+						"objects"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{NewSupplyID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteAddedItem",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful DELETE request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+							"});\r",
+							"pm.test(\"Response body matches expected response\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Object with id\", \"has been deleted\");\r",
+							"});\r",
+							"const idMatchesGlobalVar = (supply) => {\r",
+							"    return supply.id = \"{{NewSupplyID}}\";\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.restful-api.dev/objects/{{NewSupplyID}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"restful-api",
+						"dev"
+					],
+					"path": [
+						"objects",
+						"{{NewSupplyID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateRestrictedItem",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Error is Method Not Allowed\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Method Not Allowed\");\r",
+							"});\r",
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"    pm.response.to.be.error;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"name\": \"folder\",\r\n   \"data\": {\r\n      \"description\": \"two-pocket folder with prongs\",\r\n      \"color\": \"rainbow\",\r\n      \"itemcount:\": \"1\",\r\n      \"quantity\": \"10\"\r\n   }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.restful-api.dev/objects/?id=1",
+					"protocol": "https",
+					"host": [
+						"api",
+						"restful-api",
+						"dev"
+					],
+					"path": [
+						"objects",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetNonExistingObjectID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.ok;\r",
+							"});\r",
+							"pm.test(\"Returned no items\", function(){\r",
+							"    const supplies = pm.response.json();\r",
+							"    pm.expect(supplies.length).to.eql(0);\r",
+							"});\r",
+							"pm.test(\"Id field is empty or not defined\", function(){\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.id).is.oneOf([null, undefined]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.restful-api.dev/objects?id=500",
+					"protocol": "https",
+					"host": [
+						"api",
+						"restful-api",
+						"dev"
+					],
+					"path": [
+						"objects"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "500"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
