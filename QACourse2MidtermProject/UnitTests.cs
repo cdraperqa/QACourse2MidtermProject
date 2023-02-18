@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Execution;
+using System.Net.Http.Json;
 using System.Text.Json;
 using Xunit.Abstractions;
 
@@ -107,7 +108,8 @@ namespace QACourse2MidtermProject
                 ReqResApiCreateUserModel userContent = new();
                 userContent.name = "morpheus";
                 userContent.job = "leader";
-                var contentToSend = new StringContent(JsonSerializer.Serialize(userContent));
+
+                var contentToSend = new StringContent(JsonSerializer.Serialize<ReqResApiCreateUserModel>(userContent));
                 var result = await client.PostAsync(urlSuffix, contentToSend);
                 var content = await result.Content.ReadAsStringAsync();
 
@@ -118,6 +120,7 @@ namespace QACourse2MidtermProject
                     result.IsSuccessStatusCode.Should().BeTrue();
                     response.id.Should().NotBeNullOrEmpty();
                     response.createdAt.ToString("MM/dd/yyyy").Should().Be(DateTime.Now.ToString("MM/dd/yyyy"));
+                    //response does not return name or job, so cannot assert on those
                 }
             }
             
@@ -132,7 +135,7 @@ namespace QACourse2MidtermProject
                 userContent.name = "morpheus";
                 userContent.job = "zion resident";
 
-                var contentToSend = new StringContent(JsonSerializer.Serialize(userContent));
+                var contentToSend = new StringContent(JsonSerializer.Serialize<ReqResApiCreateUserModel>(userContent));
                 var result = await client.PatchAsync(urlSuffix, contentToSend);
                 var content = await result.Content.ReadAsStringAsync();
 
@@ -142,6 +145,29 @@ namespace QACourse2MidtermProject
                 {
                     result.IsSuccessStatusCode.Should().BeTrue();
                     response.updatedAt.ToString("MM/dd/yyyy").Should().Be(DateTime.Now.ToString("MM/dd/yyyy"));
+                }
+            }
+
+            [Fact]
+            public async Task TestRegisterUser()
+            {
+                HttpClient client = new();
+                client.BaseAddress = new Uri("https://reqres.in/");
+                string urlSuffix = "/api/register";
+
+                ReqResApiRegisterModel userContent = new();
+                userContent.email = "eve.holt@reqres.in";
+                userContent.password = "pistol";
+
+                var result = await client.PostAsJsonAsync(urlSuffix, userContent);
+                var content = await result.Content.ReadAsStringAsync();
+
+                var response = JsonSerializer.Deserialize<ReqResApiRegisterResponseModel>(content);
+
+                using (new AssertionScope())
+                {
+                    result.IsSuccessStatusCode.Should().BeTrue();
+                    response.token.Should().Be("QpwL5tke4Pnpja7X4");
                 }
             }
 

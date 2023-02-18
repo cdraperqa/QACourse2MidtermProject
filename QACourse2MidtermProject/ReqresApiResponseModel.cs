@@ -61,11 +61,35 @@ namespace QACourse2MidtermProject
         public DateTime createdAt { get; set; }
     }
 
-
     public class ReqResApiCreateUserModel
     {
         public string? name { get; set; }
         public string? job { get; set; }
+    }
+
+    public class ReqResApiLoginModel
+    {
+        public string? email { get; set; }
+        public string? password { get; set; }
+    }
+
+    public class ReqResApiLoginResponseModel
+    {
+        public string? token { get; set; }
+    }
+
+
+
+    public class ReqResApiRegisterModel
+    {
+        public string? email { get; set; }
+        public string? password { get; set; }
+    }
+
+    public class ReqResApiRegisterResponseModel
+    {
+        public int? id { get; set; }
+        public string? token { get; set; }
     }
 
 }
