@@ -110,6 +110,60 @@
 			"response": []
 		},
 		{
+			"name": "GetObjectId8",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.ok;\r",
+							"});\r",
+							"pm.test(\"Returned all 13 items\", function(){\r",
+							"    const supplies = pm.response.json();\r",
+							"    pm.expect(supplies.length).to.eql(1);\r",
+							"});\r",
+							"pm.test(\"Returned Apple Watch Series 8\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Apple Watch Series 8\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.restful-api.dev/objects/8",
+					"protocol": "https",
+					"host": [
+						"api",
+						"restful-api",
+						"dev"
+					],
+					"path": [
+						"objects",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "GetMultipleObjectsByID",
 			"event": [
 				{
