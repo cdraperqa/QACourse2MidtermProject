@@ -37,16 +37,6 @@ namespace QACourse2MidtermProject
         public Support? support { get; set; }
     }
 
-    //public class ReqresApiDeleteResponseModel
-    //{
-    //    public int page { get; set; }
-    //    public int per_page { get; set; }
-    //    public int total { get; set; }
-    //    public int total_pages { get; set; }
-    //    public Datum[]? data { get; set; }
-    //    public Support? support { get; set; }
-    //}
-
     public class Datum
     {
         public int id { get; set; }
@@ -71,5 +61,11 @@ namespace QACourse2MidtermProject
         public DateTime createdAt { get; set; }
     }
 
+
+    public class ReqResApiCreateUserModel
+    {
+        public string? name { get; set; }
+        public string? job { get; set; }
+    }
 
 }

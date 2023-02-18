@@ -1,11 +1,6 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Execution;
 using System.Text.Json;
-//using Newtonsoft.Json;
-using System.Collections.Immutable;
-using System.Net.Http.Json;
-using System.Runtime.InteropServices;
-using System.Xml.XPath;
 using Xunit.Abstractions;
 
 namespace QACourse2MidtermProject
@@ -34,7 +29,7 @@ namespace QACourse2MidtermProject
                 var content = await result.Content.ReadAsStringAsync();
                 _logger.WriteLine(content);
 
-                var response = System.Text.Json.JsonSerializer.Deserialize<ReqresApiResponseModel>(content);
+                var response = JsonSerializer.Deserialize<ReqresApiResponseModel>(content);
 
                 using (new AssertionScope())
                 {
@@ -54,7 +49,7 @@ namespace QACourse2MidtermProject
                 var content = await result.Content.ReadAsStringAsync();
                 _logger.WriteLine(content);
 
-                var response = System.Text.Json.JsonSerializer.Deserialize<ReqresApiSingleResponseModel>(content);
+                var response = JsonSerializer.Deserialize<ReqresApiSingleResponseModel>(content);
 
                 using (new AssertionScope())
                 {
@@ -75,7 +70,7 @@ namespace QACourse2MidtermProject
                 var content = await result.Content.ReadAsStringAsync();
                 _logger.WriteLine(content);
 
-                var response = System.Text.Json.JsonSerializer.Deserialize<ReqresApiResponseModel>(content);
+                var response = JsonSerializer.Deserialize<ReqresApiResponseModel>(content);
 
                 using (new AssertionScope())
                 {
@@ -95,7 +90,11 @@ namespace QACourse2MidtermProject
                 var content = await result.Content.ReadAsStringAsync();
                 _logger.WriteLine(content);
 
-                result.ReasonPhrase.Should().Be("No Content");
+                using (new AssertionScope())
+                {
+                    result.IsSuccessStatusCode.Should().BeTrue();
+                    result.ReasonPhrase.Should().Be("No Content");
+                }
             }
 
             [Fact]
@@ -104,19 +103,21 @@ namespace QACourse2MidtermProject
                 HttpClient client = new();
                 client.BaseAddress = new Uri("https://reqres.in/");
                 string urlSuffix = "/api/users";
-                var contentToSend = new StringContent("{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"leader\"\r\n}");
+
+                ReqResApiCreateUserModel userContent = new();
+                userContent.name = "morpheus";
+                userContent.job = "leader";
+                var contentToSend = new StringContent(JsonSerializer.Serialize(userContent));
                 var result = await client.PostAsync(urlSuffix, contentToSend);
                 var content = await result.Content.ReadAsStringAsync();
 
-                var response = System.Text.Json.JsonSerializer.Deserialize<ReqresApiCreateResponseModel>(content);
+                var response = JsonSerializer.Deserialize<ReqresApiCreateResponseModel>(content);
 
                 using (new AssertionScope())
                 {
                     result.IsSuccessStatusCode.Should().BeTrue();
                     response.id.Should().NotBeNullOrEmpty();
-                    response.createdAt.Month.Should().Be(DateTime.Now.Month);
-                    response.createdAt.Day.Should().Be(DateTime.Now.Day);
-                    response.createdAt.Year.Should().Be(DateTime.Now.Year);
+                    response.createdAt.ToString("MM/dd/yyyy").Should().Be(DateTime.Now.ToString("MM/dd/yyyy"));
                 }
             }
             
@@ -126,19 +127,21 @@ namespace QACourse2MidtermProject
                 HttpClient client = new();
                 client.BaseAddress = new Uri("https://reqres.in/");
                 string urlSuffix = "/api/users/2";
-                var contentToSend = new StringContent("{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"zion resident\"\r\n}");
+
+                ReqResApiCreateUserModel userContent = new();
+                userContent.name = "morpheus";
+                userContent.job = "zion resident";
+
+                var contentToSend = new StringContent(JsonSerializer.Serialize(userContent));
                 var result = await client.PatchAsync(urlSuffix, contentToSend);
                 var content = await result.Content.ReadAsStringAsync();
 
-                var response = System.Text.Json.JsonSerializer.Deserialize<ReqresApiPatchResponseModel>(content);
+                var response = JsonSerializer.Deserialize<ReqresApiPatchResponseModel>(content);
 
                 using (new AssertionScope())
                 {
                     result.IsSuccessStatusCode.Should().BeTrue();
-                    response.updatedAt.Month.Should().Be(DateTime.Now.Month);
-                    response.updatedAt.Day.Should().Be(DateTime.Now.Day);
-                    response.updatedAt.Year.Should().Be(DateTime.Now.Year);
-
+                    response.updatedAt.ToString("MM/dd/yyyy").Should().Be(DateTime.Now.ToString("MM/dd/yyyy"));
                 }
             }
 
