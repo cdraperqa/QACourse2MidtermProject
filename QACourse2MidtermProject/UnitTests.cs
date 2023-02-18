@@ -40,7 +40,6 @@ namespace QACourse2MidtermProject
                 {
                     result.IsSuccessStatusCode.Should().BeTrue();
                     response.total.Should().Be(12);
-
                 }
             }
 
@@ -55,8 +54,14 @@ namespace QACourse2MidtermProject
                 var content = await result.Content.ReadAsStringAsync();
                 _logger.WriteLine(content);
 
-                result.IsSuccessStatusCode.Should().BeTrue();
+                var response = System.Text.Json.JsonSerializer.Deserialize<ReqresApiSingleResponseModel>(content);
 
+                using (new AssertionScope())
+                {
+                    result.IsSuccessStatusCode.Should().BeTrue();
+                    response.data.id.Should().Be(2);
+                    response.data.email.Should().Be("janet.weaver@reqres.in");
+                }
             }
 
             [Fact]
@@ -70,19 +75,13 @@ namespace QACourse2MidtermProject
                 var content = await result.Content.ReadAsStringAsync();
                 _logger.WriteLine(content);
 
-                try
-                {
-                    var response = System.Text.Json.JsonSerializer.Deserialize<ReqresApiResponseModel>(content);
-                }
-                catch (JsonException e)
-                {
-                    _logger.WriteLine("Unable to parse response content. Response body was {content}, status code was {result.StatusCode}.");
-                    _logger.WriteLine(e.Message);
-                    _logger.WriteLine(e.StackTrace);
-                    throw;
-                }
+                var response = System.Text.Json.JsonSerializer.Deserialize<ReqresApiResponseModel>(content);
 
-                result.ReasonPhrase.Should().Be("Not Found");
+                using (new AssertionScope())
+                {
+                    result.ReasonPhrase.Should().Be("Not Found");
+                    response.data.Should().BeNull();
+                }
             }
 
             [Fact]
@@ -105,19 +104,43 @@ namespace QACourse2MidtermProject
                 HttpClient client = new();
                 client.BaseAddress = new Uri("https://reqres.in/");
                 string urlSuffix = "/api/users";
-                var content = new StringContent("{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"leader\"\r\n}");
-                var response = await client.PostAsync(urlSuffix, content);
+                var contentToSend = new StringContent("{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"leader\"\r\n}");
+                var result = await client.PostAsync(urlSuffix, contentToSend);
+                var content = await result.Content.ReadAsStringAsync();
 
-                var result = await client.PostAsJsonAsync(urlSuffix, content);
+                var response = System.Text.Json.JsonSerializer.Deserialize<ReqresApiCreateResponseModel>(content);
 
                 using (new AssertionScope())
                 {
                     result.IsSuccessStatusCode.Should().BeTrue();
-                    response.ReasonPhrase.Should().Be("Created");
+                    response.id.Should().NotBeNullOrEmpty();
+                    response.createdAt.Month.Should().Be(DateTime.Now.Month);
+                    response.createdAt.Day.Should().Be(DateTime.Now.Day);
+                    response.createdAt.Year.Should().Be(DateTime.Now.Year);
+                }
+            }
+            
+            [Fact]
+            public async Task TestUpdateExistingUser()
+            {
+                HttpClient client = new();
+                client.BaseAddress = new Uri("https://reqres.in/");
+                string urlSuffix = "/api/users/2";
+                var contentToSend = new StringContent("{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"zion resident\"\r\n}");
+                var result = await client.PatchAsync(urlSuffix, contentToSend);
+                var content = await result.Content.ReadAsStringAsync();
+
+                var response = System.Text.Json.JsonSerializer.Deserialize<ReqresApiPatchResponseModel>(content);
+
+                using (new AssertionScope())
+                {
+                    result.IsSuccessStatusCode.Should().BeTrue();
+                    response.updatedAt.Month.Should().Be(DateTime.Now.Month);
+                    response.updatedAt.Day.Should().Be(DateTime.Now.Day);
+                    response.updatedAt.Year.Should().Be(DateTime.Now.Year);
 
                 }
             }
-
 
         }
     }
