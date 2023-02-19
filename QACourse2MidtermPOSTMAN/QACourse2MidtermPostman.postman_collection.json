@@ -1,512 +1,62 @@
 {
 	"info": {
-		"_postman_id": "0314a9c2-753f-48b7-9dfc-cdd7d6e5420b",
-		"name": "QACourse2MidtermPostman",
+		"_postman_id": "6d624402-3061-465d-a1da-1d1c40fd9764",
+		"name": "ReqResRequests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25411685"
 	},
 	"item": [
 		{
-			"name": "GetFullObjectList",
+			"name": "GetListOfAllUsers",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Successful status code\", function () {\r",
+							"pm.test(\"Status is successful\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
-							"    pm.response.to.be.ok;\r",
 							"});\r",
-							"pm.test(\"Returned all 13 items\", function(){\r",
-							"    const supplies = pm.response.json();\r",
-							"    pm.expect(supplies.length).to.eql(13);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "https://api.restful-api.dev/objects",
-					"protocol": "https",
-					"host": [
-						"api",
-						"restful-api",
-						"dev"
-					],
-					"path": [
-						"objects"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetOneObjectByID",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Successful status code\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"    pm.response.to.be.ok;\r",
-							"});\r",
-							"pm.test(\"Returned all 13 items\", function(){\r",
-							"    const supplies = pm.response.json();\r",
-							"    pm.expect(supplies.length).to.eql(1);\r",
-							"});\r",
-							"pm.test(\"Returned correct item name\", function () {\r",
-							"    pm.expect(pm.response.text()).to.include(\"Google Pixel 6 Pro\");\r",
+							"pm.test(\"Total returned is 12\", function () {\r",
+							"    pm.expect(pm.response.json().total).to.equal(12);\r",
 							"})"
 						],
 						"type": "text/javascript"
 					}
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "https://api.restful-api.dev/objects?id=1",
+					"raw": "https://reqres.in/api/users",
 					"protocol": "https",
 					"host": [
-						"api",
-						"restful-api",
-						"dev"
+						"reqres",
+						"in"
 					],
 					"path": [
-						"objects"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "1"
-						}
+						"api",
+						"users"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "GetObjectId8",
+			"name": "GetExampleTestUserId2",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Successful status code\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"    pm.response.to.be.ok;\r",
-							"});\r",
-							"pm.test(\"Returned all 13 items\", function(){\r",
-							"    const supplies = pm.response.json();\r",
-							"    pm.expect(supplies.length).to.eql(1);\r",
-							"});\r",
-							"pm.test(\"Returned Apple Watch Series 8\", function () {\r",
-							"    pm.expect(pm.response.text()).to.include(\"Apple Watch Series 8\");\r",
-							"})"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://api.restful-api.dev/objects/8",
-					"protocol": "https",
-					"host": [
-						"api",
-						"restful-api",
-						"dev"
-					],
-					"path": [
-						"objects",
-						"8"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetMultipleObjectsByID",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Successful status code\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"    pm.response.to.be.ok;\r",
-							"});\r",
-							"pm.test(\"Returned 3 items\", function(){\r",
-							"    const supplies = pm.response.json();\r",
-							"    pm.expect(supplies.length).to.eql(3);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://api.restful-api.dev/objects?id=2&id=4&id=6",
-					"protocol": "https",
-					"host": [
-						"api",
-						"restful-api",
-						"dev"
-					],
-					"path": [
-						"objects"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "2"
-						},
-						{
-							"key": "id",
-							"value": "4"
-						},
-						{
-							"key": "id",
-							"value": "6"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "AddNewItem",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.globals.set(\"NewSupplyID\", pm.response.json().id);\r",
-							"\r",
-							"pm.test(\"Successful status code\", function () {\r",
+							"pm.test(\"Status is successful\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"Content-Type is present\", function () {\r",
-							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"pm.test(\"Correct UserId is returned\", function () {\r",
+							"    pm.expect(pm.response.json().data.id).eqls(2);\r",
 							"});\r",
-							"const moment=require('moment');\r",
-							"pm.test(\"Created date is today\", function(){\r",
-							"    const data = pm.response.json();\r",
-							"    pm.expect(moment(data.CreatedAt).format('MM/DD/YYYY'))\r",
-							"    .to.eql(moment().format('MM/DD/YYYY'))\r",
-							"})\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"const schoolsupplies = [{\r",
-							"   name: \"folder\",\r",
-							"   data: {\r",
-							"      description: \"two-pocket folder\",\r",
-							"      color: \"red\",\r",
-							"      itemcount: \"1\",\r",
-							"      quantity: \"1\"}\r",
-							"}, {\r",
-							"   name: \"folder\",\r",
-							"   data: {\r",
-							"      description: \"two-pocket folder\",\r",
-							"      color: \"orange\",\r",
-							"      itemcount: \"1\",\r",
-							"      quantity: \"1\"}\r",
-							"}, {\r",
-							"   name: \"folder\",\r",
-							"   data: {\r",
-							"      description: \"two-pocket folder\",\r",
-							"      color: \"yellow\",\r",
-							"      itemcount: \"1\",\r",
-							"      quantity: \"1\"}\r",
-							"}, {\r",
-							"   name: \"folder\",\r",
-							"   data: {\r",
-							"      description: \"two-pocket folder\",\r",
-							"      color: \"green\",\r",
-							"      itemcount: \"1\",\r",
-							"      quantity: \"1\"}\r",
-							"}, {\r",
-							"   name: \"folder\",\r",
-							"   data: {\r",
-							"      description: \"two-pocket folder\",\r",
-							"      color: \"blue\",\r",
-							"      itemcount: \"1\",\r",
-							"      quantity: \"1\"}\r",
-							"}, {\r",
-							"    name: \"crayons\",\r",
-							"    data: {\r",
-							"      description: \"Crayola Crayons\",\r",
-							"      color: \"multicolor\",\r",
-							"      itemcount: \"24\",\r",
-							"      quantity: \"1\"}\r",
-							"}, {\r",
-							"   name: \"markers\",\r",
-							"   data: {\r",
-							"      description: \"Crayola Washable Markers\",\r",
-							"      color: \"multicolor\",\r",
-							"      itemcount: \"8\",\r",
-							"      quantity: \"1\"}\r",
-							"}, {   \r",
-							"   name: \"glue sticks\",\r",
-							"   data: {\r",
-							"      description: \"Elmer's Washable Glue Sticks\",\r",
-							"      color: \"disappearing purple\",\r",
-							"      itemcount: \"1\",\r",
-							"      quantity: \"4\"}\r",
-							"}, {   \r",
-							"    name: \"notebook\",\r",
-							"    data: {\r",
-							"      description: \"spiral bound, college ruled\",\r",
-							"      color: \"any\",\r",
-							"      itemcount: \"1\",\r",
-							"      quantity: \"5\"}\r",
-							"}];\r",
-							"\r",
-							"const schoolsupply = _.sample(schoolsupplies);\r",
-							"\r",
-							"pm.globals.set(\"name\", schoolsupply.name);\r",
-							"pm.globals.set(\"description\", schoolsupply.data.description);\r",
-							"pm.globals.set(\"color\", schoolsupply.data.color);\r",
-							"pm.globals.set(\"itemcount\", schoolsupply.data.itemcount);\r",
-							"pm.globals.set(\"quantity\", schoolsupply.data.quantity);"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n   \"name\": \"{{name}}\",\r\n   \"data\": {\r\n      \"description\": \"{{description}}\",\r\n      \"color\": \"{{color}}\",\r\n      \"itemcount:\": \"{{itemcount}}\",\r\n      \"quantity\": \"{{quantity}}\"\r\n   }\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://api.restful-api.dev/objects",
-					"protocol": "https",
-					"host": [
-						"api",
-						"restful-api",
-						"dev"
-					],
-					"path": [
-						"objects"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "UpdateNewlyAddedItem",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Successful status code\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"    pm.response.to.be.ok;\r",
-							"});\r",
-							"pm.test(\"Response type is json\"), function(){\r",
-							"    pm.response.to.be.json;\r",
-							"} \r",
-							"pm.test(\"Color value changed correctly\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.data.color).to.eql(\"rainbow\");\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n   \"name\": \"folder\",\r\n   \"data\": {\r\n      \"description\": \"two-pocket folder with prongs\",\r\n      \"color\": \"rainbow\",\r\n      \"itemcount:\": \"1\",\r\n      \"quantity\": \"10\"\r\n   }\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://api.restful-api.dev/objects/{{NewSupplyID}}",
-					"protocol": "https",
-					"host": [
-						"api",
-						"restful-api",
-						"dev"
-					],
-					"path": [
-						"objects",
-						"{{NewSupplyID}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "PartiallyUpdateNewlyAddedItem",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Successful status code\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"    pm.response.to.be.ok;\r",
-							"});\r",
-							"pm.test(\"Color value changed correctly\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.data.color).to.eql(\"slimy eel\");\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n   \"data\": {\r\n      \"color\": \"slimy eel\"\r\n   }\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://api.restful-api.dev/objects/{{NewSupplyID}}",
-					"protocol": "https",
-					"host": [
-						"api",
-						"restful-api",
-						"dev"
-					],
-					"path": [
-						"objects",
-						"{{NewSupplyID}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetNewlyAddedItem",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Returns 1 item\", function(){\r",
-							"    const supplies = pm.response.json();\r",
-							"    pm.expect(supplies.length).to.eql(1);\r",
-							"});\r",
-							"\r",
-							"const itemHasName = (supply) => {\r",
-							"    return supply.name !== undefined;\r",
-							"}\r",
-							"pm.test(\"Every item has a name\", function(){\r",
-							"    const supplies = pm.response.json();\r",
-							"    pm.expect(supplies.every(itemHasName)).to.be.true;\r",
-							"});\r",
-							"\r",
-							"const isMatchesGlobalVar = (supply) => {\r",
-							"    return supply.id = \"{{NewSupplyID}}\";\r",
-							"}\r",
-							"pm.test(\"Requested Item ID matches Global Variable\", function(){\r",
-							"    const supplies = pm.response.json();\r",
-							"    pm.expect(supplies.every(isMatchesGlobalVar)).to.be.true;\r",
+							"pm.test(\"Expected email address is returned\", function () {\r",
+							"    pm.expect(pm.response.json().data.email).to.equal(\"janet.weaver@reqres.in\");\r",
 							"})\r",
 							""
 						],
@@ -516,50 +66,70 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Content",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"url": {
-					"raw": "https://api.restful-api.dev/objects?id={{NewSupplyID}}",
+					"raw": "https://reqres.in/api/users/2",
 					"protocol": "https",
 					"host": [
-						"api",
-						"restful-api",
-						"dev"
+						"reqres",
+						"in"
 					],
 					"path": [
-						"objects"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "{{NewSupplyID}}"
-						}
+						"api",
+						"users",
+						"2"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "DeleteNewlyAddedItem",
+			"name": "GetInvalidTestUser",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Successful DELETE request\", function () {\r",
-							"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+							"pm.test(\"Status is not found\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
 							"});\r",
-							"pm.test(\"Response body matches expected response\", function () {\r",
-							"    pm.expect(pm.response.text()).to.include(\"Object with id\", \"has been deleted\");\r",
-							"});\r",
-							"const idMatchesGlobalVar = (supply) => {\r",
-							"    return supply.id = \"{{NewSupplyID}}\";\r",
-							"}"
+							"pm.test(\"Response is empty\", function () {\r",
+							"    pm.expect(pm.response.json()).is.empty;\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/23",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteExampleUserId2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is No Content\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -567,51 +137,41 @@
 			],
 			"request": {
 				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"url": {
-					"raw": "https://api.restful-api.dev/objects/{{NewSupplyID}}",
+					"raw": "https://reqres.in/api/users/2",
 					"protocol": "https",
 					"host": [
-						"api",
-						"restful-api",
-						"dev"
+						"reqres",
+						"in"
 					],
 					"path": [
-						"objects",
-						"{{NewSupplyID}}"
+						"api",
+						"users",
+						"2"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "UpdateRestrictedItem",
+			"name": "PostNewExampleUser",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Error is Method Not Allowed\", function () {\r",
-							"    pm.expect(pm.response.text()).to.include(\"Method Not Allowed\");\r",
+							"pm.test(\"Status is successful\", function () {\r",
+							"    pm.response.status.includes(200,201,202,203,204);\r",
 							"});\r",
-							"pm.test(\"Status code is 405\", function () {\r",
-							"    pm.response.to.have.status(405);\r",
-							"    pm.response.to.be.error;\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
+							"pm.test(\"Correct UserId is returned\", function () {\r",
+							"    pm.expect(pm.response.json().id).is.not.empty;\r",
+							"});\r",
+							"pm.test(\"Name and job matches expected\", function () {\r",
+							"    pm.expect(pm.response.json().name).to.equal(\"morpheus\"),\r",
+							"    pm.expect(pm.response.json().job).to.equal(\"leader\");\r",
+							"})\r",
+							"\r",
 							""
 						],
 						"type": "text/javascript"
@@ -619,17 +179,11 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
+				"method": "POST",
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n   \"name\": \"folder\",\r\n   \"data\": {\r\n      \"description\": \"two-pocket folder with prongs\",\r\n      \"color\": \"rainbow\",\r\n      \"itemcount:\": \"1\",\r\n      \"quantity\": \"10\"\r\n   }\r\n}",
+					"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"leader\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -637,38 +191,34 @@
 					}
 				},
 				"url": {
-					"raw": "https://api.restful-api.dev/objects/?id=1",
+					"raw": "https://reqres.in/api/users",
 					"protocol": "https",
 					"host": [
-						"api",
-						"restful-api",
-						"dev"
+						"reqres",
+						"in"
 					],
 					"path": [
-						"objects",
-						""
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "1"
-						}
+						"api",
+						"users"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "UpdatePriceOfRestrictedItem",
+			"name": "PatchExistingExampleUserId2",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 405\", function () {\r",
-							"    pm.response.to.have.status(405);\r",
-							"    pm.response.to.be.error;\r",
-							"});"
+							"pm.test(\"Status is successful\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Job changed to zion resident\", function () {\r",
+							"    pm.expect(pm.response.json().job).is.equal(\"zion resident\");\r",
+							"});\r",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -677,7 +227,8 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							""
+							"const moment = require('moment');\r",
+							"pm.globals.set(\"today\", moment().format(\"MM/DD/YYYY\"));"
 						],
 						"type": "text/javascript"
 					}
@@ -685,16 +236,10 @@
 			],
 			"request": {
 				"method": "PATCH",
-				"header": [
-					{
-						"key": "Content",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n   \"data\": {\r\n      \"price\": \"200.00\"\r\n   }\r\n}",
+					"raw": "{\r\n    \"job\": \"zion resident\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -702,40 +247,176 @@
 					}
 				},
 				"url": {
-					"raw": "https://api.restful-api.dev/objects/4",
+					"raw": "https://reqres.in/api/users/2",
 					"protocol": "https",
 					"host": [
-						"api",
-						"restful-api",
-						"dev"
+						"reqres",
+						"in"
 					],
 					"path": [
-						"objects",
-						"4"
+						"api",
+						"users",
+						"2"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "GetNonExistingObjectID",
+			"name": "PostExampleRegisteredUser",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Successful status code\", function () {\r",
+							"pm.test(\"Status is successful\", function () {\r",
+							"    pm.response.status.includes(200,201,202,203,204);\r",
+							"});\r",
+							"pm.test(\"Expected token is returned\", function () {\r",
+							"    pm.expect(pm.response.json().token).eql('QpwL5tke4Pnpja7X4');\r",
+							"});\r",
+							"pm.test(\"A UserId is returned\", function () {\r",
+							"    pm.expect(pm.response.json().id).is.not.null;\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"eve.holt@reqres.in\",\r\n    \"password\": \"pistol\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/register",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostNewSpecialUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"testUserId\", pm.response.json().id);\r",
+							"pm.test(\"Status is successful\", function () {\r",
+							"    pm.response.status.includes(200,201,202,203,204);\r",
+							"});\r",
+							"pm.test(\"A UserId is returned\", function () {\r",
+							"    pm.expect(pm.response.json().id).is.not.null;\r",
+							"});\r",
+							"pm.test(\"Name and job matches expected\", function () {\r",
+							"    pm.expect(pm.response.json().name).to.equal(\"HowardDuck\"),\r",
+							"    pm.expect(pm.response.json().job).to.equal(\"Superhero\");\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"HowardDuck\",\r\n    \"job\": \"Superhero\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PatchSpecialUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is successful\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
-							"    pm.response.to.be.ok;\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"job\": \"PsychedelicSuperhero\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users/{{testUserId}}",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{testUserId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetNewSpecialUserAdded",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is Not Found - because Post aren't saved\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
 							"});\r",
-							"pm.test(\"Returned no items\", function(){\r",
-							"    const supplies = pm.response.json();\r",
-							"    pm.expect(supplies.length).to.eql(0);\r",
-							"});\r",
-							"pm.test(\"Id field is empty or not defined\", function(){\r",
-							"    const jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.id).is.oneOf([null, undefined]);\r",
-							"});"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -745,21 +426,229 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://api.restful-api.dev/objects?id=500",
+					"raw": "https://reqres.in/api/users/{{testUserId}}",
 					"protocol": "https",
 					"host": [
-						"api",
-						"restful-api",
-						"dev"
+						"reqres",
+						"in"
 					],
 					"path": [
-						"objects"
+						"api",
+						"users",
+						"{{testUserId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteSpecialUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is No Content\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/{{testUserId}}",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
 					],
-					"query": [
-						{
-							"key": "id",
-							"value": "500"
+					"path": [
+						"api",
+						"users",
+						"{{testUserId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostNewRandomUserFromPreRequestScript",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const newUsers = [{\r",
+							"   name: \"ClintBarton\",\r",
+							"   job: \"archer\"\r",
+							"}, {\r",
+							"   name: \"TonyStark\",\r",
+							"   job: \"EccentricMillionaire\"\r",
+							"}, {\r",
+							"   name: \"KalEl\",\r",
+							"   job: \"alien\"\r",
+							"}, {\r",
+							"   name: \"DianaPrince\",\r",
+							"   job: \"Amazon\"\r",
+							"}, {\r",
+							"   name: \"BruceBanner\",\r",
+							"   job: \"scientist\"\r",
+							"}, {\r",
+							"   name: \"LexLuthor\",\r",
+							"   job: \"MadGenius\"\r",
+							"}, {\r",
+							"   name: \"Magneto\",\r",
+							"   job: \"MagneticMayhem\"\r",
+							"}, {   \r",
+							"   name: \"MattMurdoch\",\r",
+							"   job: \"lawyer\"\r",
+							"}, {   \r",
+							"   name: \"PeterParker\",\r",
+							"   job: \"WebShooter\"\r",
+							"}];\r",
+							"\r",
+							"const newUser = _.sample(newUsers);\r",
+							"\r",
+							"pm.globals.set(\"name\", newUser.name);\r",
+							"pm.globals.set(\"job\", newUser.job);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"newRandomUserId\", pm.response.json().id);\r",
+							"pm.test(\"Status is successful\", function () {\r",
+							"    pm.response.status.includes(200, 201, 202, 203, 204);\r",
+							"});\r",
+							"pm.test(\"A UserId is returned\", function () {\r",
+							"    pm.expect(pm.response.json().id).is.not.null;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"name\": \"{{name}}\",\r\n   \"job\": \"{{job}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PatchExistingRandomNewUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is successful\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Name and job matches expected\", function () {\r",
+							"    pm.expect(pm.response.json().name).to.equal(\"NoFace\"),\r",
+							"    pm.expect(pm.response.json().job).to.equal(\"spirit\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"NoFace\",\r\n    \"job\": \"spirit\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users/{{newRandomUserId}}",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{newRandomUserId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteRandomNewUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is No Content\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"name\": \"Eliminated\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users/{{newRandomUserId}}",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{newRandomUserId}}"
 					]
 				}
 			},
@@ -772,22 +661,18 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.globals.unset(\"NewSupplyID\");\r",
-							"pm.globals.unset(\"NewSupplyID\");\r",
+							"pm.globals.unset(\"testUserId\");\r",
+							"pm.globals.unset(\"newRandomUserId\");\r",
 							"pm.globals.unset(\"name\");\r",
-							"pm.globals.unset(\"description\");\r",
-							"pm.globals.unset(\"color\");\r",
-							"pm.globals.unset(\"itemcount\");\r",
-							"pm.globals.unset(\"quantity\");\r",
+							"pm.globals.unset(\"job\");\r",
 							"\r",
 							"pm.test(\"Successful status code\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"    pm.response.to.be.ok;\r",
 							"});\r",
-							"pm.test(\"Returned all 13 items\", function(){\r",
-							"    const supplies = pm.response.json();\r",
-							"    pm.expect(supplies.length).to.eql(13);\r",
-							"});"
+							"pm.test(\"Total returned is 12\", function () {\r",
+							"    pm.expect(pm.response.json().total).to.equal(12);\r",
+							"})"
 						],
 						"type": "text/javascript"
 					}
@@ -797,15 +682,21 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://api.restful-api.dev/objects",
+					"raw": "https://reqres.in/api/users?page=2",
 					"protocol": "https",
 					"host": [
-						"api",
-						"restful-api",
-						"dev"
+						"reqres",
+						"in"
 					],
 					"path": [
-						"objects"
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
 					]
 				}
 			},

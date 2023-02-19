@@ -119,7 +119,7 @@ namespace QACourse2MidtermProject
                 {
                     result.IsSuccessStatusCode.Should().BeTrue();
                     response.id.Should().NotBeNullOrEmpty();
-                    response.createdAt.ToString("MM/dd/yyyy").Should().Be(DateTime.Now.ToString("MM/dd/yyyy"));
+                    response.createdAt.ToString("MM/dd/yyyy").Should().Be(DateTime.Now.ToUniversalTime().ToString("MM/dd/yyyy"));
                     //response does not return name or job, so cannot assert on those
                 }
             }
@@ -144,7 +144,7 @@ namespace QACourse2MidtermProject
                 using (new AssertionScope())
                 {
                     result.IsSuccessStatusCode.Should().BeTrue();
-                    response.updatedAt.ToString("MM/dd/yyyy").Should().Be(DateTime.Now.ToString("MM/dd/yyyy"));
+                    response.updatedAt.ToString("MM/dd/yyyy").Should().Be(DateTime.Now.ToUniversalTime().ToString("MM/dd/yyyy"));
                 }
             }
 
