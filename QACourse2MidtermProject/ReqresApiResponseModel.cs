@@ -78,8 +78,6 @@ namespace QACourse2MidtermProject
         public string? token { get; set; }
     }
 
-
-
     public class ReqResApiRegisterModel
     {
         public string? email { get; set; }

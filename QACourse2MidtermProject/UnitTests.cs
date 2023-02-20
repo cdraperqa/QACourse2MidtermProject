@@ -109,8 +109,8 @@ namespace QACourse2MidtermProject
                 userContent.name = "morpheus";
                 userContent.job = "leader";
 
-                var contentToSend = new StringContent(JsonSerializer.Serialize<ReqResApiCreateUserModel>(userContent));
-                var result = await client.PostAsync(urlSuffix, contentToSend);
+                //var contentToSend = new StringContent(JsonSerializer.Serialize<ReqResApiCreateUserModel>(userContent));
+                var result = await client.PostAsJsonAsync(urlSuffix, userContent);
                 var content = await result.Content.ReadAsStringAsync();
 
                 var response = JsonSerializer.Deserialize<ReqresApiCreateResponseModel>(content);
@@ -149,7 +149,7 @@ namespace QACourse2MidtermProject
             }
 
             [Fact]
-            public async Task TestRegisterUser()
+            public async Task TestRegisterUserSuccessful()
             {
                 HttpClient client = new();
                 client.BaseAddress = new Uri("https://reqres.in/");
@@ -168,6 +168,73 @@ namespace QACourse2MidtermProject
                 {
                     result.IsSuccessStatusCode.Should().BeTrue();
                     response.token.Should().Be("QpwL5tke4Pnpja7X4");
+                }
+            }
+
+            [Fact]
+            public async Task TestRegisterUserUnsuccessful()
+            {
+                HttpClient client = new();
+                client.BaseAddress = new Uri("https://reqres.in/");
+                string urlSuffix = "/api/register";
+
+                ReqResApiRegisterModel userContent = new();
+                userContent.email = "Clueless@StillTrying.com";
+
+                var result = await client.PostAsJsonAsync(urlSuffix, userContent);
+                var content = await result.Content.ReadAsStringAsync();
+
+                var response = JsonSerializer.Deserialize<ReqResApiRegisterResponseModel>(content);
+
+                using (new AssertionScope())
+                {
+                    result.IsSuccessStatusCode.Should().BeFalse();
+                    result.ReasonPhrase.Should().Be("Bad Request");
+                }
+            }
+
+            [Fact]
+            public async Task TestLoginUserSuccessful()
+            {
+                HttpClient client = new();
+                client.BaseAddress = new Uri("https://reqres.in/");
+                string urlSuffix = "/api/login";
+
+                ReqResApiLoginModel userContent = new();
+                userContent.email = "eve.holt@reqres.in";
+                userContent.password = "cityslicka";
+
+                var result = await client.PostAsJsonAsync(urlSuffix, userContent);
+                var content = await result.Content.ReadAsStringAsync();
+
+                var response = JsonSerializer.Deserialize<ReqResApiLoginResponseModel>(content);
+
+                using (new AssertionScope())
+                {
+                    result.IsSuccessStatusCode.Should().BeTrue();
+                    response.token.Should().Be("QpwL5tke4Pnpja7X4");
+                }
+            }
+
+            [Fact]
+            public async Task TestLoginUserUnsuccessful()
+            {
+                HttpClient client = new();
+                client.BaseAddress = new Uri("https://reqres.in/");
+                string urlSuffix = "/api/login";
+
+                ReqResApiLoginModel userContent = new();
+                userContent.email = "Clueless@StillTrying.com";
+
+                var result = await client.PostAsJsonAsync(urlSuffix, userContent);
+                var content = await result.Content.ReadAsStringAsync();
+
+                var response = JsonSerializer.Deserialize<ReqResApiLoginResponseModel>(content);
+
+                using (new AssertionScope())
+                {
+                    result.IsSuccessStatusCode.Should().BeFalse();
+                    result.ReasonPhrase.Should().Be("Bad Request");
                 }
             }
 
