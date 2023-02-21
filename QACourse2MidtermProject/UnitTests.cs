@@ -123,7 +123,7 @@ namespace QACourse2MidtermProject
                     //response does not return name or job, so cannot assert on those
                 }
             }
-            
+
             [Fact]
             public async Task TestUpdateExistingUser()
             {

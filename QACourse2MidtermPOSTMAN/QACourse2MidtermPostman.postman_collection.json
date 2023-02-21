@@ -531,7 +531,14 @@
 							"pm.test(\"A UserId is returned\", function () {\r",
 							"    pm.expect(pm.response.json().id).is.not.null;\r",
 							"});\r",
-							""
+							"pm.test(\"Names matches one from pre-request script\", function () {\r",
+							"    var arrName = [\"ClintBarton\", \"TonyStark\", \"KalEl\", \"DianaPrince\", \"BruceBanner\", \"LexLuthor\", \"Magneto\", \"MattMurdoch\", \"PeterParker\"];\r",
+							"    pm.expect(pm.response.json().name).to.contain.oneOf(arrName);\r",
+							"});\r",
+							"pm.test(\"Job matches one from pre-request script\", function () {\r",
+							"    var arrJob = [\"archer\", \"EccentricMillionaire\", \"alien\", \"Amazon\", \"scientist\", \"MadGenius\", \"MagneticMayhem\", \"lawyer\", \"WebShooter\"];\r",
+							"    pm.expect(pm.response.json().job).to.contain.oneOf(arrJob);\r",
+							"})"
 						],
 						"type": "text/javascript"
 					}
