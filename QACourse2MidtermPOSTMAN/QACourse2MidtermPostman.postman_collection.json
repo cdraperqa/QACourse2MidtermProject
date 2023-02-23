@@ -170,9 +170,10 @@
 							"pm.test(\"Name and job matches expected\", function () {\r",
 							"    pm.expect(pm.response.json().name).to.equal(\"morpheus\"),\r",
 							"    pm.expect(pm.response.json().job).to.equal(\"leader\");\r",
-							"})\r",
-							"\r",
-							""
+							"});\r",
+							"pm.test(\"User created today\", function () {\r",
+							"    pm.expect(pm.response.json().createdAt).includes(require('moment').utc().format(\"YYYY-MM-DD\"));\r",
+							"})"
 						],
 						"type": "text/javascript"
 					}
@@ -218,7 +219,9 @@
 							"pm.test(\"Job changed to zion resident\", function () {\r",
 							"    pm.expect(pm.response.json().job).is.equal(\"zion resident\");\r",
 							"});\r",
-							""
+							"pm.test(\"User created today\", function () {\r",
+							"    pm.expect(pm.response.json().updatedAt).includes(require('moment').utc().format(\"YYYY-MM-DD\"));\r",
+							"})"
 						],
 						"type": "text/javascript"
 					}
@@ -227,8 +230,7 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"const moment = require('moment');\r",
-							"pm.globals.set(\"today\", moment().format(\"MM/DD/YYYY\"));"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -277,9 +279,7 @@
 							"});\r",
 							"pm.test(\"A UserId is returned\", function () {\r",
 							"    pm.expect(pm.response.json().id).is.not.null;\r",
-							"})\r",
-							"\r",
-							""
+							"})"
 						],
 						"type": "text/javascript"
 					}
@@ -329,6 +329,9 @@
 							"pm.test(\"Name and job matches expected\", function () {\r",
 							"    pm.expect(pm.response.json().name).to.equal(\"HowardDuck\"),\r",
 							"    pm.expect(pm.response.json().job).to.equal(\"Superhero\");\r",
+							"});\r",
+							"pm.test(\"User created today\", function () {\r",
+							"    pm.expect(pm.response.json().createdAt).includes(require('moment').utc().format(\"YYYY-MM-DD\"));\r",
 							"})\r",
 							""
 						],
@@ -372,6 +375,9 @@
 						"exec": [
 							"pm.test(\"Status is successful\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"User created today\", function () {\r",
+							"    pm.expect(pm.response.json().updatedAt).includes(require('moment').utc().format(\"YYYY-MM-DD\"));\r",
 							"})"
 						],
 						"type": "text/javascript"
@@ -538,6 +544,9 @@
 							"pm.test(\"Job matches one from pre-request script\", function () {\r",
 							"    var arrJob = [\"archer\", \"EccentricMillionaire\", \"alien\", \"Amazon\", \"scientist\", \"MadGenius\", \"MagneticMayhem\", \"lawyer\", \"WebShooter\"];\r",
 							"    pm.expect(pm.response.json().job).to.contain.oneOf(arrJob);\r",
+							"});\r",
+							"pm.test(\"User created today\", function () {\r",
+							"    pm.expect(pm.response.json().createdAt).includes(require('moment').utc().format(\"YYYY-MM-DD\"));\r",
 							"})"
 						],
 						"type": "text/javascript"
@@ -584,6 +593,9 @@
 							"pm.test(\"Name and job matches expected\", function () {\r",
 							"    pm.expect(pm.response.json().name).to.equal(\"NoFace\"),\r",
 							"    pm.expect(pm.response.json().job).to.equal(\"spirit\");\r",
+							"});\r",
+							"pm.test(\"User created today\", function () {\r",
+							"    pm.expect(pm.response.json().updatedAt).includes(require('moment').utc().format(\"YYYY-MM-DD\"));\r",
 							"})"
 						],
 						"type": "text/javascript"
