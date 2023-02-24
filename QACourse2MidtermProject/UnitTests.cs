@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Execution;
+using System.ComponentModel.DataAnnotations;
 using System.Net.Http.Json;
 using System.Text.Json;
 using Xunit.Abstractions;
@@ -30,7 +31,7 @@ namespace QACourse2MidtermProject
                 var content = await result.Content.ReadAsStringAsync();
                 _logger.WriteLine(content);
 
-                var response = JsonSerializer.Deserialize<ReqresApiResponseModel>(content);
+                var response = JsonSerializer.Deserialize<ReqresApiListUsersResponseModel>(content);
 
                 using (new AssertionScope())
                 {
@@ -50,7 +51,7 @@ namespace QACourse2MidtermProject
                 var content = await result.Content.ReadAsStringAsync();
                 _logger.WriteLine(content);
 
-                var response = JsonSerializer.Deserialize<ReqresApiSingleResponseModel>(content);
+                var response = JsonSerializer.Deserialize<ReqresApiSingleUserResponseModel>(content);
 
                 using (new AssertionScope())
                 {
@@ -71,7 +72,7 @@ namespace QACourse2MidtermProject
                 var content = await result.Content.ReadAsStringAsync();
                 _logger.WriteLine(content);
 
-                var response = JsonSerializer.Deserialize<ReqresApiResponseModel>(content);
+                var response = JsonSerializer.Deserialize<ReqresApiListUsersResponseModel>(content);
 
                 using (new AssertionScope())
                 {
@@ -171,25 +172,28 @@ namespace QACourse2MidtermProject
                 }
             }
 
-            [Fact]
-            public async Task TestRegisterUserUnsuccessful()
+            [Theory]
+            [InlineData("Clueless@StillTrying.com", null, "Missing password")]
+            [InlineData(null, "C1uele$$", "Missing email or username")]
+            public async Task TestRegisterUserUnsuccessful(string email, string password, string expectedResponse)
             {
                 HttpClient client = new();
                 client.BaseAddress = new Uri("https://reqres.in/");
                 string urlSuffix = "/api/register";
 
                 ReqResApiRegisterModel userContent = new();
-                userContent.email = "Clueless@StillTrying.com";
+                if (String.IsNullOrEmpty(email) == false) { userContent.email = email; }
+                if (String.IsNullOrEmpty(password) == false) { userContent.password = password; }
 
                 var result = await client.PostAsJsonAsync(urlSuffix, userContent);
                 var content = await result.Content.ReadAsStringAsync();
 
-                var response = JsonSerializer.Deserialize<ReqResApiRegisterResponseModel>(content);
+                var response = JsonSerializer.Deserialize<ReqResApiErrorResponseModel>(content);
 
                 using (new AssertionScope())
                 {
                     result.IsSuccessStatusCode.Should().BeFalse();
-                    result.ReasonPhrase.Should().Be("Bad Request");
+                    response.error.Should().Be(expectedResponse);
                 }
             }
 
@@ -216,25 +220,29 @@ namespace QACourse2MidtermProject
                 }
             }
 
-            [Fact]
-            public async Task TestLoginUserUnsuccessful()
+
+            [Theory]
+            [InlineData("Clueless@StillTrying.com", null, "Missing password")]
+            [InlineData(null, "C1uele$$", "Missing email or username")]
+            public async Task TestLoginUserUnsuccessful(string email, string password, string expectedResponse)
             {
                 HttpClient client = new();
                 client.BaseAddress = new Uri("https://reqres.in/");
                 string urlSuffix = "/api/login";
 
                 ReqResApiLoginModel userContent = new();
-                userContent.email = "Clueless@StillTrying.com";
+                if (String.IsNullOrEmpty(email) == false) { userContent.email = email; }
+                if (String.IsNullOrEmpty(password) == false) { userContent.password = password; }
 
                 var result = await client.PostAsJsonAsync(urlSuffix, userContent);
                 var content = await result.Content.ReadAsStringAsync();
 
-                var response = JsonSerializer.Deserialize<ReqResApiLoginResponseModel>(content);
+                var response = JsonSerializer.Deserialize<ReqResApiErrorResponseModel>(content);
 
                 using (new AssertionScope())
                 {
                     result.IsSuccessStatusCode.Should().BeFalse();
-                    result.ReasonPhrase.Should().Be("Bad Request");
+                    response.error.Should().Be(expectedResponse);
                 }
             }
 

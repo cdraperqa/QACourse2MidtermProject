@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QACourse2MidtermProject
 {
-    public class ReqresApiResponseModel
+    public class ReqresApiListUsersResponseModel
     {
         public int page { get; set; }
         public int per_page { get; set; }
@@ -31,7 +31,7 @@ namespace QACourse2MidtermProject
         public string? avatar { get; set; }
     }
 
-    public class ReqresApiSingleResponseModel
+    public class ReqresApiSingleUserResponseModel
     {
         public Data? data { get; set; }
         public Support? support { get; set; }
@@ -88,6 +88,11 @@ namespace QACourse2MidtermProject
     {
         public int? id { get; set; }
         public string? token { get; set; }
+    }
+
+    public class ReqResApiErrorResponseModel
+    { 
+        public string? error { get; set; }
     }
 
 }
